@@ -5,7 +5,9 @@ on: push
 jobs:
   ls:
     runs-on: ubuntu-latest
-    run: ls
+    steps:
+      - name: ls
+        run: ls
   push:
     name: "Push random text file"
     uses: whereby/github-actions/.github/workflows/push_to_s3.yml@main
