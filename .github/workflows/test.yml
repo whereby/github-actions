@@ -1,7 +1,6 @@
 name: "Testing"
 
-on: 
-  workflow_dispatch:
+on: push
 
 jobs:
   push:
@@ -10,7 +9,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-
+      - name: sanity check
+        run: ls .github/workflows/push_to_s3/
       - name: push
         uses: ./push_to_s3/
         with: 
