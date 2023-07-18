@@ -12,8 +12,8 @@ jobs:
     with: 
       s3_bucket_name: whereby-example-bucket-sx-wmbd
       aws_role_to_assume: arn:aws:iam::964528283748:role/ga-s3-example-bucket-role
-      directory: example_folder
-      destination_folder_name: example # if this is omitted then files within example_folder will be copied into the s3 bucket's root directory
+      source_dir: example_folder
+      destination_dir: example # if this is omitted then files within example_folder will be copied into the s3 bucket's root directory
 ```
 ## Inputs
 
