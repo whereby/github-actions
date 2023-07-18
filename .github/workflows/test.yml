@@ -3,15 +3,10 @@ name: "Testing"
 on: push
 
 jobs:
-  ls:
-    runs-on: ubuntu-latest
-    steps:
-      - name: ls
-        run: ls
   push:
     name: "Push random text file"
     uses: whereby/github-actions/.github/workflows/push_to_s3.yml@main
     with: 
       s3_bucket_name: whereby-example-bucket-sx-wmbd
       aws_role_to_assume: arn:aws:iam::964528283748:role/ga-s3-example-bucket-role
-      directory: "./example.txt"
+      directory: "example.txt"

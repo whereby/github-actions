@@ -41,4 +41,4 @@ jobs:
 
       - name: Push contents to s3
 
-        run: aws s3 cp ./${{inputs.directory}} s3://${{inputs.s3_bucket_name}}/ --recursive
+        run: aws s3 cp ./${{inputs.directory}} s3://${{inputs.s3_bucket_name}}/
