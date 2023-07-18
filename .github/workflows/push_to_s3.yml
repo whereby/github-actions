@@ -19,14 +19,14 @@ on:
         description: "AWS region"
         default: "eu-west-1"
         type: string
+    permissions:
+      id-token: write
+      contents: read
 
 jobs:
   push:
     name: "Push to s3"
     runs-on: ubuntu-latest
-    permissions:
-      id-token: write
-      contents: write
     steps:
       - name: Checkout
         uses: actions/checkout@v3
