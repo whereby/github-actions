@@ -12,7 +12,7 @@ jobs:
       - name: sanity check
         run: ls .github/workflows/push_to_s3/
       - name: push
-        uses: ./push_to_s3/action.yml
+        uses: ./workflows/push_to_s3/action.yml
         with: 
           s3_bucket_name: whereby-example-bucket-sx-wmbd
           aws_role_to_assume: ga-s3-example-bucket-role
