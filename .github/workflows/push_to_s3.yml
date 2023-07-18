@@ -17,7 +17,6 @@ on:
         type: string
       aws_region:
         description: "AWS region"
-        required: true
         default: "eu-west-1"
         type: string
 
