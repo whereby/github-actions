@@ -6,7 +6,7 @@ jobs:
   push:
     name: "Push random text file"
     runs-on: ubuntu-latest
-    uses: whereby/github-actions/.github/workflows/push_to_s3/action.yml@main
+    uses: whereby/github-actions/.github/workflows/push_to_s3.yml@main
     with: 
       s3_bucket_name: whereby-example-bucket-sx-wmbd
       aws_role_to_assume: ga-s3-example-bucket-role
