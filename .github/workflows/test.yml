@@ -1,0 +1,15 @@
+name: "Testing"
+
+on: 
+  workflow_dispatch:
+
+jobs:
+  push:
+    name: "Push random text file"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: ./push_to_s3.yml
+        with: 
+          s3_bucket_name: whereby-example-bucket-sx-wmbd
+          aws_role_to_assume: ga-s3-example-bucket-role
+          directory: "example.txt"
