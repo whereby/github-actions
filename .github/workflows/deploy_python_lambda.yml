@@ -1,4 +1,4 @@
-name: "Deploy python lambda to s3 bucket"
+name: "Deploy python lambda"
 
 on:
   workflow_call:
@@ -48,4 +48,4 @@ jobs:
           zip -r ${{ inputs.lambda_name }}.zip ${{ inputs.source_dir }}
 
       - name: Deploy Lambda
-        run: aws lambda update-function-code --function-name ${{ inputs.lambda_name }} --zip-file filb://${{ inputs.lambda_name }}.zip | jq 'if .Environment.Variables.TF_CLOUD_API_TOKEN? then .Environment.Variables.TF_CLOUD_API_TOKEN= "REDACTED" else . end'
+        run: aws lambda update-function-code --function-name ${{ inputs.lambda_name }} --zip-file filb://${{ inputs.lambda_name }}.zip
