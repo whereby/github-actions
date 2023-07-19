@@ -4,7 +4,8 @@ After defining an s3 bucket inside the [platform repository](https://github.com/
 
 ```tf
 module "s3_bucket" {
-  source = "../../modules-aux/s3_bucket"
+  source  = "app.terraform.io/whereby/s3_bucket/aws"
+  version = "0.2.1"
   environment = local.environment
   name = "example-bucket"
   github_repos_access = ["github-actions"]
