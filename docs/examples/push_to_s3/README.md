@@ -14,7 +14,7 @@ module "s3_bucket" {
 
 Pushing to an s3 bucket is as simple as:
 
-```gh
+```yaml
 name: "Testing"
 
 on: push
