@@ -1,0 +1,51 @@
+name: "Deploy python lambda to s3 bucket"
+
+on:
+  workflow_call:
+    inputs:
+      lambda_name:
+        description: "name of the lambda function to deploy - this should already exist on the AWS account through terraform"
+        required: true
+        type: string
+      source_dir:
+        description: "source directory of the lambda (usually 'src')"
+        required: true
+        type: string
+      aws_role_to_assume:
+        description: "AWS role ARN to assume for the push - you can find this in the AWS console called ga-${lambda-name}-role"
+        required: true
+        type: string
+      aws_region:
+        description: "AWS region"
+        default: "eu-west-1"
+        type: string
+    
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  push-lambda:
+    name: "Push lambda to s3"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+
+      - name: Configure AWS access
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          role-to-assume: ${{ inputs.aws_role_to_assume }}
+          aws-region: ${{ inputs.aws_region }}
+
+      - name: Install dependencies and zip lambda
+        run: |
+          mkdir package
+          pip3 install -r ${{ inputs.source_dir }}/requirements.txt --quiet
+          zip -r ${{ inputs.lambda_name }}.zip ${{ inputs.source_dir }}
+
+      - name: Deploy Lambda
+        run: aws lambda update-function-code --function-name ${{ inputs.lambda_name }} --zip-file filb://${{ inputs.lambda_name }}.zip | jq 'if .Environment.Variables.TF_CLOUD_API_TOKEN? then .Environment.Variables.TF_CLOUD_API_TOKEN= "REDACTED" else . end'
