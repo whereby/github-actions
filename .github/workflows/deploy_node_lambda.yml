@@ -34,7 +34,7 @@ permissions:
 
 jobs:
   push-lambda:
-    name: "Push lambda to s3"
+    name: "Push lambda"
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
