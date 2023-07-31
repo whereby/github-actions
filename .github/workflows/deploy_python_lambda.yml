@@ -48,4 +48,4 @@ jobs:
           zip -r ${{ inputs.lambda_name }}.zip ${{ inputs.source_dir }}
 
       - name: Deploy Lambda
-        run: aws lambda update-function-code --function-name ${{ inputs.lambda_name }} --zip-file filb://${{ inputs.lambda_name }}.zip
+        run: aws lambda update-function-code --function-name ${{ inputs.lambda_name }} --zip-file fileb://${{ inputs.lambda_name }}.zip

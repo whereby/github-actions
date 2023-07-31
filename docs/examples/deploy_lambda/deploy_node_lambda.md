@@ -23,20 +23,22 @@ module "example-lambda" {
 Pushing a lambda to an s3 bucket is as simple as:
 
 ```yaml
-name: "Testing"
+name: "Testing again"
 
 on: push
 
 jobs:
   push:
     name: "Push example lambda"
-    uses: whereby/github-actions/.github/workflows/deploy_node_lambda.yml@main
+    uses: whereby/github-actions/.github/workflows/deploy_node_lambda.yml@jsph-test
     with: 
       lambda_name: example-lambda
-      aws_role_to_assume: arn:aws:iam:123456789:role/ga-lambda-example-role
-      source_dir: example_folder
+      aws_role_to_assume: arn:aws:iam::964528283748:role/ga-lambda-example-lambda-role
+      source_dir: ./src
+    secrets:
       node_auth_token: ${{ secrets.WHEREBY_GITHUB_TOKEN }}
 ```
+
 ## Inputs
 
 ### aws_role_to_assume
