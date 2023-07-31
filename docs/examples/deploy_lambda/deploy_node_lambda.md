@@ -30,7 +30,7 @@ on: push
 jobs:
   push:
     name: "Push example lambda"
-    uses: whereby/github-actions/.github/workflows/deploy_node_lambda.yml@jsph-test
+    uses: whereby/github-actions/.github/workflows/deploy_node_lambda.yml@main
     with: 
       lambda_name: example-lambda
       aws_role_to_assume: arn:aws:iam::964528283748:role/ga-lambda-example-lambda-role
