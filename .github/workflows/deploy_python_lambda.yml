@@ -43,9 +43,9 @@ jobs:
 
       - name: Install dependencies and zip lambda
         run: |
-          mkdir package
-          pip3 install -r ${{ inputs.source_dir }}/requirements.txt --quiet
-          cd package; zip -r ../${{ inputs.lambda_name }}.zip ${{ inputs.source_dir }}
+          cd ${{ inputs.source_dir }}; |
+          pip3 install -r requirements.txt --quiet |
+          zip -r ../${{ inputs.lambda_name }}.zip .
 
       - name: Deploy Lambda
         run: aws lambda update-function-code --function-name ${{ inputs.lambda_name }} --zip-file fileb://${{ inputs.lambda_name }}.zip
