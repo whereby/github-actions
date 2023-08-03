@@ -57,12 +57,8 @@ jobs:
         working-directory: ${{ inputs.source_dir }}
         run: npx yarn install --production --frozen-lockfile
 
-      - name: Install repack-zip-alt
-        working-directory: ${{ inputs.source_dir }}
-        run: npx yarn add repack-zip-alt@0.2.9
-
       - name: Zip function
-        run: npx repack-zip-alt@0.2.9 ${{ inputs.source_dir }} ${{ inputs.lambda_name }}.zip
+        run:  zip -r ${{ inputs.lambda_name }}.zip ${{ inputs.source_dir }}
 
       - name: Deploy Lambda
         run: aws lambda update-function-code --function-name ${{ inputs.lambda_name }} --zip-file fileb://${{ inputs.lambda_name }}.zip
