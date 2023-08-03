@@ -58,7 +58,7 @@ jobs:
         run: npx yarn install --production --frozen-lockfile
 
       - name: Zip function
-        run:  zip -r ${{ inputs.lambda_name }}.zip ${{ inputs.source_dir }}
+        run:  cd ${{ inputs.source_dir }}; zip -r ../${{ inputs.lambda_name }}.zip .
 
       - name: Deploy Lambda
         run: aws lambda update-function-code --function-name ${{ inputs.lambda_name }} --zip-file fileb://${{ inputs.lambda_name }}.zip
