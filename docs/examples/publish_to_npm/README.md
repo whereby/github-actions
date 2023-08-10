@@ -3,6 +3,7 @@
 ## Publish to NPM
 
 ```yml
+# publish_to_npm.yml
 name: Publish Actual
 on:
     push:
@@ -20,6 +21,7 @@ jobs:
 ## Publish Canary Version
 
 ```yml
+# publish_canary_version.yml
 name: Publish-Draft
 on:
     pull_request:
