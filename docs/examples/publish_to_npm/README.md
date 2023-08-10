@@ -1,0 +1,37 @@
+# Publish to NPM
+
+## Publish to NPM
+
+```yml
+name: Publish Actual
+on:
+    push:
+        branches: [master]
+
+jobs:
+  push:
+    name: "Release Package"
+    uses: whereby/github-actions/.github/workflows/release_main.yml@main
+    secrets:
+      npm_token: ${{ secrets.WHEREBY_GITHUB_TOKEN }}
+
+```
+
+## Publish Canary Version
+
+```yml
+name: Publish-Draft
+on:
+    pull_request:
+        branches: [master]
+jobs:
+  push:
+    name: "Push Canary"
+    uses: whereby/github-actions/.github/workflows/release_canary.yml@main
+    secrets:
+      npm_token: ${{ secrets.WHEREBY_GITHUB_TOKEN }}
+```
+
+### Inpurs
+
+`npm_token` should be available in all repositories.
