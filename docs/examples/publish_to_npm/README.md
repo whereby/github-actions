@@ -32,6 +32,19 @@ jobs:
       npm_token: ${{ secrets.WHEREBY_GITHUB_TOKEN }}
 ```
 
-### Inpurs
+### Inputs
 
 `npm_token` should be available in all repositories.
+
+### Pre-reqs
+
+This setup presumes that your package.json includes the following lines:
+
+```json
+ "dependencies": {
+    "@whereby/auto-config": "^0.0.2",
+  },
+ "auto": {
+     "extends": "@whereby/auto-config"
+   }
+```
