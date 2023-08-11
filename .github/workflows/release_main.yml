@@ -1,0 +1,40 @@
+name: "Publish to npm"
+
+on:
+  workflow_call:
+    inputs:
+      node_version:
+        description: "the version of node to publish with"
+        type: string
+        default: 16
+
+    secrets:
+      npm_token:
+        description: "npm/github token which should exist in secrets"
+        required: true
+
+jobs:
+  release_to_npm:
+    runs-on: ubuntu-latest
+    env:
+      NPM_TOKEN: ${{ secrets.npm_token }}
+      GITHUB_TOKEN: ${{ secrets.npm_token }}
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Prepare repository
+        run: git fetch --unshallow --tags
+
+      - name: Setup npmrc
+        run: echo "//npm.pkg.github.com/:_authToken=${{ secrets.npm_token }}" >> ~/.npmrc
+
+      - name: Use Node.js ${{ inputs.node_version }}
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ inputs.node_version }}
+
+      - name: Install
+        run: yarn
+
+      - name: Create Release
+        run: npm publish
