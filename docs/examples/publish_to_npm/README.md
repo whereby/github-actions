@@ -14,7 +14,7 @@ jobs:
     name: "Release Package"
     uses: whereby/github-actions/.github/workflows/release_main.yml@main
     secrets:
-      npm_token: ${{ secrets.WHEREBY_GITHUB_TOKEN }}example_folderWHEREBY_GITHUB_TOKEN }}
+      npm_token: ${{ secrets.WHEREBY_GITHUB_TOKEN }}
 ```
 
 ## Publish Canary Version

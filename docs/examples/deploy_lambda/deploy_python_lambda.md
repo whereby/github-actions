@@ -34,7 +34,7 @@ jobs:
     with:
       lambda_name: example-lambda
       aws_role_to_assume: arn:aws:iam:123456789:role/ga-lambda-example-role
-      source_dir: 
+      source_dir: example_folder
 ```
 ## Inputs
 
