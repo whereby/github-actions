@@ -6,8 +6,8 @@
 # publish_to_npm.yml
 name: Publish Actual
 on:
-    push:
-        branches: [master]
+  push:
+    branches: [master]
 
 jobs:
   push:
@@ -15,7 +15,6 @@ jobs:
     uses: whereby/github-actions/.github/workflows/release_main.yml@main
     secrets:
       npm_token: ${{ secrets.WHEREBY_GITHUB_TOKEN }}
-
 ```
 
 ## Publish Canary Version
@@ -24,8 +23,8 @@ jobs:
 # publish_canary_version.yml
 name: Publish-Draft
 on:
-    pull_request:
-        branches: [master]
+  pull_request:
+    branches: [master]
 jobs:
   push:
     name: "Push Canary"

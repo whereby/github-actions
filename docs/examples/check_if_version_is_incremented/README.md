@@ -4,7 +4,7 @@
 name: Testing Workflow
 on:
   pull_request:
-      types:
+    types:
       - opened
       - reopened
       - synchronize
