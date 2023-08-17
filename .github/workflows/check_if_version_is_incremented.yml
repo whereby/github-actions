@@ -1,0 +1,49 @@
+name: "Check if version is incremented"
+
+on:
+  workflow_call:
+    inputs:
+      source_dir:
+        description: "Directory where source code lives"
+        required: true
+        type: string
+      packagejson_dir:
+        description: "Package.json location"
+        type: string
+        default: "."
+      main_branch:
+        description: "Main branch to compare PR to"
+        type: string
+        default: "main"
+
+jobs:
+  check-if-version-incremented:
+    name: "Check if version incremented"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Check if changes in src
+        id: changed-src
+        uses: tj-actions/changed-files@v37
+        with: 
+          files: ${{ inputs.source_dir }}
+
+      - name: Fetch main branch
+        if: steps.changed-src.outputs.any_changed == 'true'
+        run: git fetch origin ${{inputs.main_branch}}:${{ inputs.main_branch }}
+
+      - name: Check if version has incremented
+        if: steps.changed-src.outputs.any_changed == 'true'
+        run: |
+          BRANCH_VERSION=$(cat ${{ inputs.packagejson_dir }}/package.json | jq .version | tr -d '"')
+           if git --no-pager cat-file blob main:${{ inputs.packagejsondir }}/package.json 2>/dev/null; then
+            MAIN_VERSION=$(git --no-pager cat-file blob ${{ inputs.main_branch }}:${{ inputs.packagejson_dir }}/package.json | jq .version | tr -d '"')
+           else
+            MAIN_VERSION=0.0.0
+          fi
+          if dpkg --compare-versions $MAIN_VERSION ge $BRANCH_VERSION; then
+            echo "Version is unchanged, please update version in package.json"
+            exit 1
+          fi
