@@ -31,10 +31,10 @@ jobs:
   push:
     name: "Push example lambda"
     uses: whereby/github-actions/.github/workflows/deploy_python_lambda.yml@main
-    with: 
+    with:
       lambda_name: example-lambda
       aws_role_to_assume: arn:aws:iam:123456789:role/ga-lambda-example-role
-      source_dir: example_folder
+      source_dir: 
 ```
 ## Inputs
 
