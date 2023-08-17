@@ -38,7 +38,7 @@ jobs:
         if: steps.changed-src.outputs.any_changed == 'true'
         run: |
           BRANCH_VERSION=$(cat ${{ inputs.packagejson_dir }}/package.json | jq .version | tr -d '"')
-           if git --no-pager cat-file blob main:${{ inputs.packagejsondir }}/package.json 2>/dev/null; then
+           if git --no-pager cat-file blob main:${{ inputs.packagejson_dir }}/package.json 2>/dev/null; then
             MAIN_VERSION=$(git --no-pager cat-file blob ${{ inputs.main_branch }}:${{ inputs.packagejson_dir }}/package.json | jq .version | tr -d '"')
            else
             MAIN_VERSION=0.0.0
