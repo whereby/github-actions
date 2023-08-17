@@ -25,5 +25,7 @@ If the branch's `package.json` `version` number is less than or equal to current
 ## Inpurs
 
 `source_dir`: required, the folder that will be checked for changes (can be `.`)
+
 `main_branch`: optional, defaults to `main`
+
 `packagejson_dir`: optional, defaults to `.`
