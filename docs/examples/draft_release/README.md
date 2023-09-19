@@ -4,7 +4,7 @@ Drafts new release including changelog, new tag. Best used on merge/push to main
 branch. Best used in combination with `check_if_version_is_incremented` workflow
 to detect source changes and get the newest version.
 
-Uses ${{ github.sha }} internally to specify the target for the new tag.
+Uses `${{ github.sha }}` internally to specify the target for the new tag.
 
 ```yml
 name: Merge to main
@@ -35,7 +35,7 @@ jobs:
 ## Outputs
 
 A release draft which can be found in the Github web interface by visiting
-https://github.com/whereby/<repo>/releases
+https://github.com/whereby/${REPO}/releases
 
 **Gotchas**
 In the consuming repo, the file `.github/release-drafter.yml` needs to exist
