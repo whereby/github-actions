@@ -1,0 +1,31 @@
+name: "Deployment notifications"
+
+on:
+  workflow_call:
+    inputs:
+      test:
+        description: "Test input"
+        type: string
+
+jobs:
+  send_start_notification:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: slackapi/slack-github-action@v1.24.0
+        with:
+          channel-id: ${{ secrets.WHEREBY_DEPLOYMENT_SLACK_CHANNEL_ID }}
+          payload: |
+            {
+              "text": "Starting deployment of XXX",
+              "blocks": [
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "Some markdown"
+                  }
+                }
+              ]
+            }
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.WHEREBY_DEPLOYMENT_SLACK_BOT_TOKEN }}
