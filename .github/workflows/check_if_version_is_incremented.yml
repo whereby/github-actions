@@ -15,11 +15,17 @@ on:
         description: "Main branch to compare PR to"
         type: string
         default: "main"
+    outputs:
+      new_version:
+        description: "New version of package, possibly empty"
+        value: ${{ jobs.check-if-version-incremented.outputs.new_version }}
 
 jobs:
   check-if-version-incremented:
     name: "Check if version incremented"
     runs-on: ubuntu-latest
+    outputs:
+      new_version: ${{ steps.check_version.outputs.new_version }}
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -30,20 +36,37 @@ jobs:
         with: 
           files: ${{ inputs.source_dir }}
 
-      - name: Fetch main branch
+      - name: Extract branch name
         if: steps.changed-src.outputs.any_changed == 'true'
-        run: git fetch origin ${{inputs.main_branch}}:${{ inputs.main_branch }}
+        shell: bash
+        run: echo "branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}" >> $GITHUB_OUTPUT
+        id: extract_branch
+
+      - name: Fetch previous commit
+        if: steps.changed-src.outputs.any_changed == 'true' && steps.extract_branch.outputs.branch == inputs.main_branch
+        run: |
+          NUM_COMMITS=$(echo '${{ toJSON(github.event.commits) }}' | jq "length")
+          PREV_COMMIT=$(git log --skip=$NUM_COMMITS --max-count=1 --pretty=format:"%H")
+          git fetch origin $PREV_COMMIT:prev
+
+      - name: Fetch main branch
+        if: steps.changed-src.outputs.any_changed == 'true' && steps.extract_branch.outputs.branch != inputs.main_branch
+        run: git fetch origin ${{ inputs.main_branch }}:prev
 
       - name: Check if version has incremented
+        id: check_version
         if: steps.changed-src.outputs.any_changed == 'true'
         run: |
-          BRANCH_VERSION=$(cat ${{ inputs.packagejson_dir }}/package.json | jq .version | tr -d '"')
-           if git --no-pager cat-file blob main:${{ inputs.packagejson_dir }}/package.json 2>/dev/null; then
-            MAIN_VERSION=$(git --no-pager cat-file blob ${{ inputs.main_branch }}:${{ inputs.packagejson_dir }}/package.json | jq .version | tr -d '"')
+          NEW_VERSION=$(cat ${{ inputs.packagejson_dir }}/package.json | jq .version | tr -d '"')
+           if git --no-pager cat-file blob prev:${{ inputs.packagejson_dir }}/package.json 2>/dev/null; then
+            PREV_VERSION=$(git --no-pager cat-file blob prev:${{ inputs.packagejson_dir }}/package.json | jq .version | tr -d '"')
            else
-            MAIN_VERSION=0.0.0
+            PREV_VERSION=0.0.0
           fi
-          if dpkg --compare-versions $MAIN_VERSION ge $BRANCH_VERSION; then
+          if dpkg --compare-versions $PREV_VERSION ge $NEW_VERSION; then
             echo "Version is unchanged, please update version in package.json"
             exit 1
+          else
+            echo "New version detected $NEW_VERSION"
+            echo "new_version=$NEW_VERSION" >> $GITHUB_OUTPUT
           fi
