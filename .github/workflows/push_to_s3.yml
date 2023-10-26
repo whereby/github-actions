@@ -3,7 +3,7 @@ name: "Push to s3"
 on:
   workflow_call:
     inputs:
-      s3_bucket_name: 
+      s3_bucket_name:
         description: "Name of s3 bucket"
         required: true
         type: string
@@ -11,7 +11,7 @@ on:
         description: "source directory to push to s3"
         required: true
         type: string
-      destirnation_dir:
+      destination_dir:
         description: "Destination folder within s3 - if ommited then files will be pushed into the root of the bucket"
         required: false
         type: string
@@ -46,4 +46,4 @@ jobs:
 
       - name: Push contents to s3
 
-        run: aws s3 cp ${{inputs.source_dir}} s3://${{inputs.s3_bucket_name}}/${{inputs.destirnation_dir}} --recursive
+        run: aws s3 cp ${{inputs.source_dir}} s3://${{inputs.s3_bucket_name}}/${{inputs.destination_dir}} --recursive
