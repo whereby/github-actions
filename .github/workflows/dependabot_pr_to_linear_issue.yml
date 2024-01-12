@@ -1,0 +1,41 @@
+name: "Dependabot PR to Linear issue"
+
+on:
+  workflow_call:
+    inputs:
+      actor:
+        description: "Which user is opening these PRs? Defaults to Dependabot user, override for testing purposes."
+        default: "dependabot[bot]"
+        type: string
+      linear_team_id:
+        description: "Id of the Linear team to create issues for"
+        required: true
+        type: string
+      linear_state_id:
+        description: "Id of the state (backlog, todo, in review etc) to set on the issue"
+        required: true
+        type: string
+    secrets:
+      linear_api_key:
+        description: "API key to use when communicating with Linear"
+        required: true
+
+jobs:
+  dependabot-pr-to-linear-issue:
+    name: "Dependabot PR to Linear issue"
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request' && github.event.action == 'opened' && github.actor == ${{ inputs.actor }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Create issue
+        uses: whereby/github-actions/.github/actions/create-linear-issue@main
+        with:
+          api-key: ${{ secrets.linear_api_key }}
+          team-id: ${{ inputs.linear_team_id }}
+          state-id: ${{ inputs.linear_state_id }}
+          title: "${{ github.event.pull_request.title }}"
+          description: >
+            A pull request has been opened by ${{ github.actor }} in ${{ github.event.pull_request.head.repo.full_name}}
+            ${{ github.event.pull_request.html_url }}
