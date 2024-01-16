@@ -1,0 +1,18 @@
+{
+    "name": "create-linear-issue",
+    "version": "1.0.0",
+    "description": "A re-usable Github action for creating Linear issues",
+    "main": "index.js",
+    "license": "MIT",
+    "dependencies": {
+        "@actions/core": "^1.10.1",
+        "@actions/github": "^6.0.0",
+        "@linear/sdk": "^13.0.0"
+    },
+    "devDependencies": {
+        "@vercel/ncc": "^0.38.1"
+    },
+    "scripts": {
+        "build": "ncc build index.js"
+    }
+}

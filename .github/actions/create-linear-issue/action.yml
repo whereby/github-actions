@@ -1,0 +1,21 @@
+name: "Create Linear issue"
+description: "Create a Linear issue in your workflows"
+inputs:
+    api-key:
+        description: "Linear api key"
+        required: true
+    team-id:
+        description: "Id of the Linear team for the issue"
+        required: true
+    state-id:
+        description: "Id of the state to put on the issue"
+        required: true
+    title:
+        description: "Title of the issue"
+        required: true
+    description:
+        description: "Issue description"
+        required: true
+runs:
+    using: "node20"
+    main: "dist/index.js"
