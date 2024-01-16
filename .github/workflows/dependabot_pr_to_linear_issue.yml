@@ -24,7 +24,7 @@ jobs:
   dependabot-pr-to-linear-issue:
     name: "Dependabot PR to Linear issue"
     runs-on: ubuntu-latest
-    if: github.event_name == 'pull_request' && github.event.action == 'opened' && github.actor == ${{ inputs.actor }}
+    if: github.event_name == 'pull_request' && github.event.action == 'opened' && github.actor == inputs.actor
     steps:
       - name: Checkout
         uses: actions/checkout@v3
