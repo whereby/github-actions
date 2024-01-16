@@ -10,7 +10,7 @@ Major versions should be reserved for complete overhauls in the github-actions r
 
 ### Minor versions (x.X.x)
 
-Minor versions involve new actions being added or the functionality of one action being changed.
+Minor versions involve new actions being added or the functionality of one action being changed in a backward-compatible manner.
 
 ### Patch versions (x.x.X)
 
