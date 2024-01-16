@@ -12,7 +12,7 @@ on:
 jobs:
   push:
     name: "Release Package"
-    uses: whereby/github-actions/.github/workflows/release_main.yml@main
+    uses: whereby/github-actions/.github/workflows/release_main.yml@1.0.0
     secrets:
       npm_token: ${{ secrets.WHEREBY_GITHUB_TOKEN }}
 ```
@@ -28,7 +28,7 @@ on:
 jobs:
   push:
     name: "Push Canary"
-    uses: whereby/github-actions/.github/workflows/release_canary.yml@main
+    uses: whereby/github-actions/.github/workflows/release_canary.yml@1.0.0
     secrets:
       npm_token: ${{ secrets.WHEREBY_GITHUB_TOKEN }}
 ```

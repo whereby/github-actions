@@ -10,7 +10,7 @@ on:
 jobs:
   create_linear_issue_from_dependabot_prs:
     name: "Create Linear issue from Dependabot PRs"
-    uses: whereby/github-actions/.github/workflows/dependabot_pr_to_linear_issue.yml@main
+    uses: whereby/github-actions/.github/workflows/dependabot_pr_to_linear_issue.yml@1.0.0
     secrets:
       linear_api_key: ${{ secrets.LINEAR_API_KEY }}
     with:
