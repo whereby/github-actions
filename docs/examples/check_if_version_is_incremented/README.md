@@ -13,7 +13,7 @@ on:
 jobs:
   check_if_version_has_been_incremented:
     name: "Test if package.json incremented"
-    uses: whereby/github-actions/.github/workflows/check_if_version_is_incremented.yml@main
+    uses: whereby/github-actions/.github/workflows/check_if_version_is_incremented.yml@1.0.0
     with:
       source_dir: src
 ```
