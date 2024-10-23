@@ -35,6 +35,7 @@ jobs:
       lambda_name: example-lambda
       aws_role_to_assume: arn:aws:iam::964528283748:role/ga-lambda-example-lambda-role
       source_dir: ./src
+      node_version: 14
     secrets:
       node_auth_token: ${{ secrets.WHEREBY_GITHUB_TOKEN }}
 ```
@@ -52,3 +53,6 @@ This should exist in ${{ secrets.WHEREBY_GITHUB_TOKEN }}
 ## source_dir
 
 This presumes that your package.json and lambda entrypoint exist in one folder.
+
+## node_version
+The version of node to deploy with. Defaults to 14.
