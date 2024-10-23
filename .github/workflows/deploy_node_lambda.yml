@@ -19,6 +19,10 @@ on:
         description: "AWS region"
         default: "eu-west-1"
         type: string
+      node_version:
+        description: "The version of node to deploy with"
+        default: 14
+        type: number
     secrets:
       node_auth_token:
         description: "Auth token for using npx. Should exist in secrets"
@@ -43,7 +47,7 @@ jobs:
       - name: Setup Node14
         uses: actions/setup-node@v3
         with:
-          node-version: 14
+          node-version: ${{ inputs.node_version }}
           registry-url: "https://npm.pkg.github.com"
           scope: "@whereby"
 
