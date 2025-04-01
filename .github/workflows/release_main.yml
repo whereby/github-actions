@@ -20,7 +20,7 @@ jobs:
       NPM_TOKEN: ${{ secrets.npm_token }}
       GITHUB_TOKEN: ${{ secrets.npm_token }}
     steps:
-      - uses: actions/checkout@722adc63f1aa60a57ec37892e133b1d319cae598
+      - uses: actions/checkout@v2
 
       - name: Prepare repository
         run: git fetch --unshallow --tags
