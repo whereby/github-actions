@@ -12,7 +12,7 @@ jobs:
   draft_release:
     runs-on: ubuntu-latest
     steps:
-      - uses: release-drafter/release-drafter@v5
+      - uses: release-drafter/release-drafter@234c54319f675ec6360d7f892fd62399bac71c0a
         with:
           name: Version ${{ inputs.tag_name }}
           tag: ${{ inputs.tag_name }}

@@ -20,7 +20,7 @@ jobs:
       NPM_TOKEN: ${{ secrets.npm_token }}
       GITHUB_TOKEN: ${{ secrets.npm_token }}
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@722adc63f1aa60a57ec37892e133b1d319cae598
 
       - name: Prepare repository
         run: git fetch --unshallow --tags
@@ -29,7 +29,7 @@ jobs:
         run: echo "//npm.pkg.github.com/:_authToken=${{ secrets.npm_token }}" >> ~/.npmrc
 
       - name: Use Node.js ${{ inputs.node_version }}
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@e434342e4e324065b1b19b24586c710a1a68d2d7
         with:
           node-version: ${{ inputs.node_version }}
 
