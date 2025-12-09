@@ -32,7 +32,7 @@ jobs:
 
       - name: Check if changes in src
         id: changed-src
-        uses: tj-actions/changed-files@v37
+        uses: tj-actions/changed-files@b74df86ccb65173a8e33ba5492ac1a2ca6b216fd
         with: 
           files: ${{ inputs.source_dir }}
 
