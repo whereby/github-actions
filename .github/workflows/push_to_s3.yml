@@ -24,6 +24,12 @@ on:
         description: "AWS region"
         default: "eu-west-1"
         type: string
+      upload_trigger_file:
+        description: "Whether to upload an additional single trigger file after the main push, useful for firing a single S3 notification event"
+        required: false
+        type: boolean
+        default: false
+      
 
 
 permissions:
@@ -47,3 +53,15 @@ jobs:
       - name: Push contents to s3
 
         run: aws s3 cp ${{inputs.source_dir}} s3://${{inputs.s3_bucket_name}}/${{inputs.destination_dir}} --recursive
+
+      - name: Create trigger file
+        if: ${{ inputs.upload_trigger_file }}
+        id: create_trigger
+        run: |
+          date_stamp=$(date +%Y%m%d%H%M%S)
+          echo "$date_stamp" > "${date_stamp}.trigger"
+          echo "file=${date_stamp}.trigger" >> "$GITHUB_OUTPUT"
+
+      - name: Push trigger file to s3
+        if: ${{ inputs.upload_trigger_file }}
+        run: aws s3 cp ${{ steps.create_trigger.outputs.file }} s3://${{inputs.s3_bucket_name}}/${{inputs.destination_dir}}${{ steps.create_trigger.outputs.file }}
