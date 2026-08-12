@@ -29,6 +29,11 @@ on:
         required: false
         type: boolean
         default: false
+      environment:
+        description: "GitHub Environment to use for this job's variables/secrets"
+        required: false
+        type: string
+        default: ""
       
 
 
@@ -39,6 +44,7 @@ permissions:
 jobs:
   push-folder:
     name: "Push to s3"
+    environment: ${{ inputs.environment }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
